@@ -13,7 +13,7 @@ class ShrinkSlideRotateSideMenuState extends SideMenuState {
         fit: StackFit.expand,
         children: [
           Positioned(
-            top: statusBarHeight + (widget?.closeIcon?.size ?? 25.0) * 2,
+            top: statusBarHeight + (widget.closeIcon.size ?? 25.0) * 2,
             bottom: 0.0,
             width: min(size.width * 0.70, widget.maxMenuWidth),
             right: widget._inverse == 1 ? null : 0,
@@ -39,7 +39,7 @@ class ShrinkSlideRotateSideMenuState extends SideMenuState {
     );
   }
 
-  Widget _getChild() => _opened
+  Widget _getChild() => _opened!
       ? SafeArea(
           child: ClipRRect(
             borderRadius: _getBorderRadius(),
@@ -49,12 +49,12 @@ class ShrinkSlideRotateSideMenuState extends SideMenuState {
         )
       : widget.child;
 
-  BorderRadius _getBorderRadius() => _opened
+  BorderRadius _getBorderRadius() => _opened!
       ? (widget.radius ?? BorderRadius.circular(34.0))
       : BorderRadius.zero;
 
   Matrix4 _getMatrix4(Size size) {
-    if (_opened) {
+    if (_opened!) {
       return Matrix4.identity()
         ..rotateZ(widget.degToRad(5.0 * widget._inverse))
         ..invertRotation()
@@ -63,7 +63,7 @@ class ShrinkSlideRotateSideMenuState extends SideMenuState {
                 widget._inverse *
                 (widget.inverse ? 0.6 : 0.9),
             (size.height * 0.1))
-        ..scale(widget.maxMenuWidth / size.width ?? 0.8, 0.8);
+        ..scale(widget.maxMenuWidth / size.width, 0.8);
     }
     return Matrix4.identity();
   }
